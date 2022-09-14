@@ -1,0 +1,45 @@
+// config provider
+let web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
+
+// get list accounts
+web3.eth.getAccounts().then(console.log)
+
+// contract
+var myContract = new web3.eth.Contract ([
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_number",
+				"type": "uint256"
+			}
+		],
+		"name": "setNumber",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "number",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+],"0xcD0bCBF2A146a6152615e1510f61a25C991c6813");
+
+
+// interaction with contract
+
+myContract.methods.number.call().then(console.log) 
+
+myContract.methods.number.call().then((res)=>console.log(res.toString()));
+
+myContract.methods.setNumber(123).send({from: "0x235a161Cb6d6a728d439ff369002dA3dE7dBaD09"}).then((res) => console.log((res)));
+
